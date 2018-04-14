@@ -1,117 +1,210 @@
-{% extends "_layout.njk" %}
-
-{% block css %}
-<link rel="stylesheet" type="text/css" href="{{ url_for("css/page.css") }}">
-<link rel="stylesheet" type="text/css" href="{{ url_for("css/post.css") }}">
-{% endblock %}
-
-{% block title %}{{ page.title }} | {{ config.title }}{% if config.subtitle %} - {{ config.subtitle }}{% endif %}{% endblock %}
-
-{% block content %}
-<section id="post" class="post">
-  {% set post = page %}
-  <article class="post-container card {% if theme.animate %} animate{% endif %}" itemscope itemtype="http://schema.org/Article">
-    <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="{{ config.url }}{{ url_for(post.path) }}">
-      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-       <meta itemprop="name" content="{{ config.author }}">
-       <meta itemprop="description" content="{{ config.description }}">
-       <meta itemprop="image" content="{{ url_for( theme.avatar) }}">
-      </span>
-      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-       <meta itemprop="name" content="{{ config.title }}">
-      </span>
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  
+  <meta name="keywords" content="网站关键字">
+  <meta name="description" content="网站简介">
+  
+  <title>随笔笔记</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/materialize.min.css">
+    
+      <link rel="stylesheet" href="/css/main.min.css">
+    
+  
+  <style type="text/css">
+      html{
+          font-family: sans-serif;
+          font-weight: 300;
+      }
+      @font-face {
+          font-family: 'Material Icons';
+          font-style: normal;
+          font-weight: 400;
+          src: url(/fonts/MaterialIcons-Regular.eot);
+          src: url(/fonts/MaterialIcons-Regular.woff2) format('woff2'),
+          url(/fonts/MaterialIcons-Regular.woff) format('woff'),
+          url(/fonts/MaterialIcons-Regular.ttf) format('truetype')
+      }
+  </style>
+<link rel="shortcut icon" href="/source/favicon.ico">
+</head>
+<body>
+<div id="menu-box"><a href="javascript:void(0)" id="menu" data-activates="slide-out" class="button-collapse menu" ><span class="nav-btn"></span></a></div>
+<div id="menu-outer">
+  <div id="menu-inner">
+      <ul id="slide-out" class="side-nav" >
+    <div class="nav-header"  style="background-image: url(/images/header-bg.png);background-color:#26A69A">
+    <div class="header-box"><img src="/images/header.png" ondragstart="return false;"></div>
+    <p>Muhesin</p>
+    <div class="nav-link">
+        
+        <a href="http://example.com" target="_blank"> <div class="link-box twitter"></div></a>
+        
+        
+        <a  href="http://example.com" target="_blank"><div class="link-box github"></div></a>
+        
+        
+        <a href="mailto:http://example.com"><div class="link-box email"></div></a>
+        
+        
+        <a href="http://example.com" target="_blank"><div class="link-box weibo"></div></a>
+        
+        
+        <a href="http://example.com" target="_blank"> <div class="link-box zhihu"></div></a>
+        
     </div>
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-       <span class="{% if post.direction and post.direction.toLowerCase() === \"rtl\" %} rtl{% endif %}">{{ post.title }}</span>
-      </h1>
-      <div class="post-meta">
-        {% if post.date %}
-        <span class="post-date">
-          <i class="far fa-calendar-plus"></i> <time title="post-date" itemprop="dateCreated datePublished" datetime="{{ moment(post.date).format() }}">{{ date(post.date, config.date_format) }}</time>
-        </span>
-        {% endif %}
-        {% if post.categories and post.categories.toArray().length %}
-        {% if post.date %}
-        <span class="post-meta-divider"> | </span>
-        {% endif %}
-        <span class="post-categories">
-          <i class="far fa-folder-open"></i>
-          {% set i = 0 %}
-          {% for cat in post.categories.toArray() %}
-          {% if i != 0 %}<i class="fas fa-angle-right"></i> {% endif %}<span itemprop="about" itemscope itemtype="http://schema.org/Thing"> <a href="{{ url_for(cat.path) }}" itemprop="url" rel="index"><span itemprop="name">{{ cat.name }}</span></a></span>
-          {% set i = i + 1 %}
-          {% endfor %}
-        </span>
-        {% endif %}
-        {% if post.comment != false and theme.comment.enable %}
-        {% if post.categories %}
-        <span class="post-meta-divider"> | </span>
-        {% endif %}
-        {% if theme.comment.hypercomments_id %}
-        <span class="post-comment-count">
-          <i class="far fa-comments"></i> <a href="{{ url_for(post.path) }}#comments" itemprop="discussionUrl"><span class="post-comment-count hc-comment-count" data-xid="{{ post.path }}" itemprop="commentsCount"></span></a>
-        </span>
-        {% elif theme.comment.disqus_shortname %}
-        <span class="post-comment-count">
-          <i class="far fa-comments"></i> <a href="{{ url_for(post.path) }}#disqus_thread" itemprop="discussionUrl"><span class="post-comment-count disqus-comment-count" data-disqus-identifier="{{ post.path }}" itemprop="commentCount"></span></a>
-        </span>
-        {% endif %}
-        {% endif %}
-      </div>
-    </header>
-    <main class="post-body{% if theme.han %} han-init-context{% endif %}{% if post.direction and post.direction.toLowerCase() === \"rtl\" %} rtl{% endif %}" itemprop="articleBody">
-      {{ post.content }}
-    </main>
-    <footer class="post-footer">
-      {% if theme.alipay or theme.wechatpay %}
-      {% include "reward.njk" %}
-      {% endif %}
-      {% if post.tags and post.tags.toArray().length %}
-      <div class="post-tags">
-        {% set i = 0 %}
-        {% if theme.tags_color %}
-        {% set colors = theme.tags_color %}
-        {% else %}
-        {% set colors = ["#fc6423", "#a3bb54", "#47aaff"] %}
-        {% endif %}
-        {% for tag in post.tags.toArray() %}
-        {% if i >= colors.length %}
-        {% set i = 0 %}
-        {% endif %}
-        <a class="post-tag button" href="{{ url_for(tag.path) }}" style="background: {{ colors[i] }}" rel="tag"><i class="fas fa-tags"></i> {{ tag.name }}</a>
-        {% set i = i + 1 %}
-        {% endfor %}
-      </div>
-      {% endif %}
-    </footer>
-  </article>
-  {% if theme.reward %}
-  {% include "reward.njk" %}
-  {% endif %}
-  {% if post.prev or post.next %}
-  <div class="post-nav">
-    {% if post.next %}
-    <div class="post-nav-next post-nav-item">
-      <a href="{{ url_for(post.next.path) }}" rel="next" title="{{ post.next.title }}">
-        <i class="fas fa-angle-left"></i>
-        <span class="nav-title">{{ post.next.title }}</span>
-      </a>
+    <div class="nav-search">
+        <form id="search-form"> <!-- 搜索框相关 -->
+            <input type="text" id="local-search-input" name="q" results="0" placeholder="搜索..." class="search form-control" autocomplete="off" autocorrect="off"/>
+            <div class="nav-search-img"><i class="material-icons">search</i></div>
+        </form>
+        <div id="local-search-result"></div> <!-- 搜索结果区 -->
+        <p class='no-result'>无搜索结果</p>
     </div>
-    {% endif %}
-    {% if post.prev %}
-    <div class="post-nav-prev post-nav-item">
-      <a href="{{ url_for(post.prev.path) }}" rel="prev" title="{{ post.prev.title }}">
-        <span class="nav-title">{{ post.prev.title }}</span>
-        <i class="fas fa-angle-right"></i>
-      </a>
-    </div>
-    {% endif %}
+</div>
+    <!--Homepage-->
+
+<li class="nav-list">
+    <a href="/" target="_self">
+        <div class="nav-ico"><i class="material-icons">home</i> </div><p>主页</p>
+    </a>
+</li>
+
+<!--archives-->
+
+<li class="nav-list dropdown-btn">
+    <a  class=""  target="_self">
+        <div class="nav-ico"><i class="material-icons">assignment</i></div><p>归档</p><div class="dropdown-ico"><i class="material-icons">arrow_drop_down</i></div>
+    </a>
+</li>
+
+<ul class="dropdown-menu dropdown" >
+    <li class="nav-dropdown-list">
+        <a class="archive-link" href="/archives/2018/04/">April 2018<span class="archive-count">2</span></a>
+    </li>
+</ul>
+<!--categories-->
+
+<ul class="dropdown-menu dropdown" >
+    <li class="nav-dropdown-list">
+        
+    </li>
+</ul>
+<!--tags-->
+
+<li class="nav-list">
+    <a href="/archives" target="_self">
+        <div class="nav-ico"><i class="material-icons">bookmark</i> </div><p>标签</p>
+    </a>
+</li>
+
+<!--photo-->
+
+<!--friends-->
+
+<!--about-->
+
+
+</ul>
+
   </div>
-  {% endif %}
-  {% if theme.comment.enable %}
-  {% include "comment.njk" %}
-  {% endif %}
-</section>
-{% endblock %}
+</div>
+
+<div id="content-outer">
+  <div id="content-inner">
+    
+<article id="post">
+  <div class="post-page-title"  style="background-color:#26A69A;background-image:url(/images/random/vateral-19.png)" >
+  <h2>知识使人免跌谷底</h2>
+    
+  <p>作者:Muhesin &nbsp&nbsp 发布于:<time datetime="2018-04-14T13:23:32.000Z">
+          2018-04-14
+    </time>
+  </p>
+    
+  </div>
+  <div class="post-page-content">
+  <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>请相信，读书和不读书的人生，真的不一样。或许你无法改变原生家庭，但读书可以给你逆袭的机会————————致自己</p>
+<h1 id="论述"><a href="#论述" class="headerlink" title="论述"></a>论述</h1><ul>
+<li><h4 id="读书能为你提供更大的平台"><a href="#读书能为你提供更大的平台" class="headerlink" title="读书能为你提供更大的平台"></a>读书能为你提供更大的平台</h4>越来越多的成功人士用实例告诉我们：读书真的很重要，读书能为你提供更大的平台。越来越多的大学生发现：能力虽然重要，但学历才是真正的敲门砖。在招聘会上，211和985背景的简历会被单独存放，而普通本科毕业应聘者简历只潦草的过了几眼，更不用说那些二本专科简历早早就结束战场了。不可否认，读书真的很重要，它能够为你提供更好的人脉，搭建更好的平台。有人会说：用的着那么看重一张纸吗，干的好不就行了？的确，学历不能决定一生，文凭也不能代表能力。但是，有些机会只留给拿着这张通行证的人。因为，它在一定程度上代表你努力奋斗、积极向上的过去。</li>
+<li><h4 id="不读书的人会输掉什么"><a href="#不读书的人会输掉什么" class="headerlink" title="不读书的人会输掉什么"></a>不读书的人会输掉什么</h4>曾经勇敢扛起“读书无用论”大旗的蒋多多，为了养活自己辗转各地，却发现连份像样的工作都找不到。10年过去，这个当初喊着“我永远不后悔”的姑娘，在饱经沧桑后终于改口：我为自己感到悲哀，螳臂当车自不量力。其实，高考才是这辈子最公平的考试。不读书终输掉撰写美好一生的机会.</li>
+<li><h4 id="感悟"><a href="#感悟" class="headerlink" title="感悟"></a>感悟</h4>比你有钱，比你好看的人不可怕，可怕的是：比你有钱，比你好看的人比你更努力。从现在起和过去那个浑浑噩噩，虚度光阴的自己挥手告别，毫不留情的说再见，向那个壮志凌云的自己进发。<br><img border="0" src="/images/struggle.jpg" alt="Pulpit rock" width="400" height="200"></li>
+</ul>
+
+  </div>
+  <!--评论块-->
+    
+
+</article>
+<nav class="post-nav">
+  <!-- Prev Nav -->
+    
+
+
+  <!-- Next Nav -->
+    
+  <a href="/2018/04/13/Begin/" id="post_nav-older" class="post-nav-content next-content">
+      旧篇
+  </a>
+    
+</nav>
+<div class="post-toc-btn"><i class="material-icons">format_list_numbered</i></div>
+<div class="post-toc-none"><p>(无)</p></div>
+<div class="post-toc-box">
+    <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#论述"><span class="post-toc-number">2.</span> <span class="post-toc-text">论述</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#读书能为你提供更大的平台"><span class="post-toc-number">2.0.0.1.</span> <span class="post-toc-text">读书能为你提供更大的平台</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#不读书的人会输掉什么"><span class="post-toc-number">2.0.0.2.</span> <span class="post-toc-text">不读书的人会输掉什么</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#感悟"><span class="post-toc-number">2.0.0.3.</span> <span class="post-toc-text">感悟</span></a></li></ol></li></ol></li></ol></li></ol>
+</div>
+<!--<div class="post-back"><i class="material-icons">arrow_back</i></div>-->
+<script type="text/javascript">
+    menu();
+</script>
+  </div>
+</div>
+<div id="bottom-outer">
+  <div id="bottom-inner">
+    <a  id="top-button" onfocus="this.blur();"><div class="up upinbody" style="background-color:#26A69A"><i class="material-icons material-up">vertical_align_top</i></div></a>
+
+
+<p style="line-height: 45px">Copyright ©  2017  随笔笔记</p>
+<p style="line-height: 45px">Powered by <a href="https://hexo.io/" target="_blank"> Hexo </a> && Theme - <a href="https://github.com/moumao/hexo-theme-Vateral" target="_blank">Vateral</a></p>
+
+  </div>
+</div>
+
+<!--影集界面需要的资源-->
+
+
+
+<!-- scripts list from theme config.yml -->
+
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+<script src="/js/materialize.min.js"></script>
+
+<script src="/js/main.min.js"></script>
+
+
+<script>
+    NProgress.start();
+    NProgress.done();
+    lazy();
+    links();
+    window.onpopstate = menu();
+    //pjax操作
+    $(document).pjax('a:not(.nopjax)', '#content-inner', {fragment:'#content-inner', timeout:8000});
+    $(document).on('pjax:start', NProgress.start).on('pjax:end', NProgress.done)
+        .on('pjax:end', () => {
+            dowmdiv();
+            lazy();
+            toc();
+            links();
+            menu();
+        });
+</script>
+
+</body>
+</html>

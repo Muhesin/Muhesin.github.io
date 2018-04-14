@@ -1,117 +1,246 @@
-{% extends "_layout.njk" %}
-
-{% block css %}
-<link rel="stylesheet" type="text/css" href="{{ url_for("css/page.css") }}">
-<link rel="stylesheet" type="text/css" href="{{ url_for("css/post.css") }}">
-{% endblock %}
-
-{% block title %}{{ page.title }} | {{ config.title }}{% if config.subtitle %} - {{ config.subtitle }}{% endif %}{% endblock %}
-
-{% block content %}
-<section id="post" class="post">
-  {% set post = page %}
-  <article class="post-container card {% if theme.animate %} animate{% endif %}" itemscope itemtype="http://schema.org/Article">
-    <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="{{ config.url }}{{ url_for(post.path) }}">
-      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-       <meta itemprop="name" content="{{ config.author }}">
-       <meta itemprop="description" content="{{ config.description }}">
-       <meta itemprop="image" content="{{ url_for( theme.avatar) }}">
-      </span>
-      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-       <meta itemprop="name" content="{{ config.title }}">
-      </span>
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  
+  <meta name="keywords" content="网站关键字">
+  <meta name="description" content="网站简介">
+  
+  <title>随笔笔记</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/materialize.min.css">
+    
+      <link rel="stylesheet" href="/css/main.min.css">
+    
+  
+  <style type="text/css">
+      html{
+          font-family: sans-serif;
+          font-weight: 300;
+      }
+      @font-face {
+          font-family: 'Material Icons';
+          font-style: normal;
+          font-weight: 400;
+          src: url(/fonts/MaterialIcons-Regular.eot);
+          src: url(/fonts/MaterialIcons-Regular.woff2) format('woff2'),
+          url(/fonts/MaterialIcons-Regular.woff) format('woff'),
+          url(/fonts/MaterialIcons-Regular.ttf) format('truetype')
+      }
+  </style>
+<link rel="shortcut icon" href="/source/favicon.ico">
+</head>
+<body>
+<div id="menu-box"><a href="javascript:void(0)" id="menu" data-activates="slide-out" class="button-collapse menu" ><span class="nav-btn"></span></a></div>
+<div id="menu-outer">
+  <div id="menu-inner">
+      <ul id="slide-out" class="side-nav" >
+    <div class="nav-header"  style="background-image: url(/images/header-bg.png);background-color:#26A69A">
+    <div class="header-box"><img src="/images/header.png" ondragstart="return false;"></div>
+    <p>Muhesin</p>
+    <div class="nav-link">
+        
+        <a href="http://example.com" target="_blank"> <div class="link-box twitter"></div></a>
+        
+        
+        <a  href="http://example.com" target="_blank"><div class="link-box github"></div></a>
+        
+        
+        <a href="mailto:http://example.com"><div class="link-box email"></div></a>
+        
+        
+        <a href="http://example.com" target="_blank"><div class="link-box weibo"></div></a>
+        
+        
+        <a href="http://example.com" target="_blank"> <div class="link-box zhihu"></div></a>
+        
     </div>
-    <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">
-       <span class="{% if post.direction and post.direction.toLowerCase() === \"rtl\" %} rtl{% endif %}">{{ post.title }}</span>
-      </h1>
-      <div class="post-meta">
-        {% if post.date %}
-        <span class="post-date">
-          <i class="far fa-calendar-plus"></i> <time title="post-date" itemprop="dateCreated datePublished" datetime="{{ moment(post.date).format() }}">{{ date(post.date, config.date_format) }}</time>
-        </span>
-        {% endif %}
-        {% if post.categories and post.categories.toArray().length %}
-        {% if post.date %}
-        <span class="post-meta-divider"> | </span>
-        {% endif %}
-        <span class="post-categories">
-          <i class="far fa-folder-open"></i>
-          {% set i = 0 %}
-          {% for cat in post.categories.toArray() %}
-          {% if i != 0 %}<i class="fas fa-angle-right"></i> {% endif %}<span itemprop="about" itemscope itemtype="http://schema.org/Thing"> <a href="{{ url_for(cat.path) }}" itemprop="url" rel="index"><span itemprop="name">{{ cat.name }}</span></a></span>
-          {% set i = i + 1 %}
-          {% endfor %}
-        </span>
-        {% endif %}
-        {% if post.comment != false and theme.comment.enable %}
-        {% if post.categories %}
-        <span class="post-meta-divider"> | </span>
-        {% endif %}
-        {% if theme.comment.hypercomments_id %}
-        <span class="post-comment-count">
-          <i class="far fa-comments"></i> <a href="{{ url_for(post.path) }}#comments" itemprop="discussionUrl"><span class="post-comment-count hc-comment-count" data-xid="{{ post.path }}" itemprop="commentsCount"></span></a>
-        </span>
-        {% elif theme.comment.disqus_shortname %}
-        <span class="post-comment-count">
-          <i class="far fa-comments"></i> <a href="{{ url_for(post.path) }}#disqus_thread" itemprop="discussionUrl"><span class="post-comment-count disqus-comment-count" data-disqus-identifier="{{ post.path }}" itemprop="commentCount"></span></a>
-        </span>
-        {% endif %}
-        {% endif %}
-      </div>
-    </header>
-    <main class="post-body{% if theme.han %} han-init-context{% endif %}{% if post.direction and post.direction.toLowerCase() === \"rtl\" %} rtl{% endif %}" itemprop="articleBody">
-      {{ post.content }}
-    </main>
-    <footer class="post-footer">
-      {% if theme.alipay or theme.wechatpay %}
-      {% include "reward.njk" %}
-      {% endif %}
-      {% if post.tags and post.tags.toArray().length %}
-      <div class="post-tags">
-        {% set i = 0 %}
-        {% if theme.tags_color %}
-        {% set colors = theme.tags_color %}
-        {% else %}
-        {% set colors = ["#fc6423", "#a3bb54", "#47aaff"] %}
-        {% endif %}
-        {% for tag in post.tags.toArray() %}
-        {% if i >= colors.length %}
-        {% set i = 0 %}
-        {% endif %}
-        <a class="post-tag button" href="{{ url_for(tag.path) }}" style="background: {{ colors[i] }}" rel="tag"><i class="fas fa-tags"></i> {{ tag.name }}</a>
-        {% set i = i + 1 %}
-        {% endfor %}
-      </div>
-      {% endif %}
-    </footer>
-  </article>
-  {% if theme.reward %}
-  {% include "reward.njk" %}
-  {% endif %}
-  {% if post.prev or post.next %}
-  <div class="post-nav">
-    {% if post.next %}
-    <div class="post-nav-next post-nav-item">
-      <a href="{{ url_for(post.next.path) }}" rel="next" title="{{ post.next.title }}">
-        <i class="fas fa-angle-left"></i>
-        <span class="nav-title">{{ post.next.title }}</span>
-      </a>
+    <div class="nav-search">
+        <form id="search-form"> <!-- 搜索框相关 -->
+            <input type="text" id="local-search-input" name="q" results="0" placeholder="搜索..." class="search form-control" autocomplete="off" autocorrect="off"/>
+            <div class="nav-search-img"><i class="material-icons">search</i></div>
+        </form>
+        <div id="local-search-result"></div> <!-- 搜索结果区 -->
+        <p class='no-result'>无搜索结果</p>
     </div>
-    {% endif %}
-    {% if post.prev %}
-    <div class="post-nav-prev post-nav-item">
-      <a href="{{ url_for(post.prev.path) }}" rel="prev" title="{{ post.prev.title }}">
-        <span class="nav-title">{{ post.prev.title }}</span>
-        <i class="fas fa-angle-right"></i>
-      </a>
-    </div>
-    {% endif %}
+</div>
+    <!--Homepage-->
+
+<li class="nav-list">
+    <a href="/" target="_self">
+        <div class="nav-ico"><i class="material-icons">home</i> </div><p>主页</p>
+    </a>
+</li>
+
+<!--archives-->
+
+<li class="nav-list dropdown-btn">
+    <a  class=""  target="_self">
+        <div class="nav-ico"><i class="material-icons">assignment</i></div><p>归档</p><div class="dropdown-ico"><i class="material-icons">arrow_drop_down</i></div>
+    </a>
+</li>
+
+<ul class="dropdown-menu dropdown" >
+    <li class="nav-dropdown-list">
+        <a class="archive-link" href="/archives/2018/04/">April 2018<span class="archive-count">2</span></a>
+    </li>
+</ul>
+<!--categories-->
+
+<ul class="dropdown-menu dropdown" >
+    <li class="nav-dropdown-list">
+        
+    </li>
+</ul>
+<!--tags-->
+
+<li class="nav-list">
+    <a href="/archives" target="_self">
+        <div class="nav-ico"><i class="material-icons">bookmark</i> </div><p>标签</p>
+    </a>
+</li>
+
+<!--photo-->
+
+<!--friends-->
+
+<!--about-->
+
+
+</ul>
+
   </div>
-  {% endif %}
-  {% if theme.comment.enable %}
-  {% include "comment.njk" %}
-  {% endif %}
-</section>
-{% endblock %}
+</div>
+
+<div id="content-outer">
+  <div id="content-inner">
+    
+<article id="post">
+  <div class="post-page-title"  style="background-color:#26A69A;background-image:url(/images/random/vateral-15.png)" >
+  <h2>起点</h2>
+    
+  <p>作者:Muhesin &nbsp&nbsp 发布于:<time datetime="2018-04-13T13:26:48.000Z">
+          2018-04-13
+    </time>
+  </p>
+    
+  </div>
+  <div class="post-page-content">
+  <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><pre><code>———本文记录本人建立个人博客的心路历程和感悟
+</code></pre><ul>
+<li>Hexo是高效的静态站点生成框架，基于Node.js。</li>
+<li>Node.js是基于Chrome V8引擎的JavaScript运行环境，<br>可以在非浏览器环境下，解释运行JS 代码。</li>
+<li>Git是目前世界上最流行的分布式版本控制系统，</li>
+<li>github是面向开源及私有软件项目的托管平台，<br>因只支持git作为唯一的版本库格式进行托管，故名gitHub。</li>
+<li>Coding是面向开发者的云端开发平台,提供git/svn 代码托管,在线 WebIDE…</li>
+</ul>
+<ul>
+<li><a id="more"></a>
+</li>
+</ul>
+<h1 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h1><ul>
+<li>基础环境搭建（node.js、git、github、coding配置）<ul>
+<li>node.js官网：<a href="https://nodejs.org/en/" target="_blank" rel="noopener">https://nodejs.org/en/</a></li>
+<li>git官网：<a href="https://git-scm.com/download/win" target="_blank" rel="noopener">https://git-scm.com/download/win</a><br>检验配置：win+R；cmd，输入node -v,git –version</li>
+<li>github配置：官网：<a href="https://github.com" target="_blank" rel="noopener">https://github.com</a><br>repository name:youename.github.io<br>setting –&gt; GitHub Pages 网址访问测试<br>coding账户配置：官网：    <a href="https://coding.net" target="_blank" rel="noopener">https://coding.net</a><br>项目名称：youename.coding.me<br>Pages服务-&gt;静态Pages-&gt;部署来源-&gt;master分支保存。网址访问测试</li>
+<li>注意事项:github与coding任一皆可，一起优点：保证访问速度。<br>github与coding都有自己规范的项目命名规则，弄<br>清楚可以避免不必要的麻烦（如http过长.配置时不方便）。<ul>
+<li>用户名一旦确认不可更改；</li>
+<li>绑定解除繁琐</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>二、安装Hexo<ul>
+<li>任意位置建立新文件夹（用于存储本地文件）<br>Git Bash执行命令<br>  -&gt; npm install -g hexo<br>  -&gt; hexo init    //初始化<br>  -&gt; hexo s       //启动服务<br>  显示http：//localhost:4000,访问测试，成功则本地文件建立完成</li>
+</ul>
+</li>
+<li>三、Hexo与Github、coding连接<ul>
+<li>配置git个人信息<br>  Git Bash执行命令：<br>  设置user name和email<br>  -&gt; git config –global user.name “yourname”<br>  -&gt; git config –global user.email “youremail”<br>  生成秘钥<br>  -&gt; ssh-keygen -t rsa -C “youremail”<br>  秘钥文件（.ssh-&gt;id_rsa.pub)复制，粘至Github、coding项目keys</li>
+<li>配置Deployment：<br>  文件根目录下修改_config.yml<br>  <img border="0" src="/images/deploy.jpg" alt="Pulpit rock" width="300" height="120"></li>
+</ul>
+</li>
+<li>四、部署<ul>
+<li>Git Bash 文件根目录下执行命令：<br>   -&gt; npm install hexo-deployer-git –save  //部署扩展<br>   若没有执行者行命令，将会提醒deloyer not found:git<br>   -&gt; hexo clean                            //清除缓存<br>   -&gt; hexo g                               //生成静态文件<br>   -&gt; hexo d                              //文件生成后立即部署<br>   访问检测 Github,coding 本地同步</li>
+</ul>
+</li>
+<li>感悟<ul>
+<li>遇到很多问题，反反复复重来，查资料，终于踏出了第一步，至此我会继续出发，停下容易迷茫，堕落终究消亡。</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <!--评论块-->
+    
+
+</article>
+<nav class="post-nav">
+  <!-- Prev Nav -->
+    
+  <a href="/2018/04/14/knowledge/" id="post_nav-newer" class="post-nav-content prev-content">
+      新篇
+  </a>
+    
+
+
+  <!-- Next Nav -->
+    
+</nav>
+<div class="post-toc-btn"><i class="material-icons">format_list_numbered</i></div>
+<div class="post-toc-none"><p>(无)</p></div>
+<div class="post-toc-box">
+    <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#基本步骤"><span class="post-toc-number">2.</span> <span class="post-toc-text">基本步骤</span></a></li></ol>
+</div>
+<!--<div class="post-back"><i class="material-icons">arrow_back</i></div>-->
+<script type="text/javascript">
+    menu();
+</script>
+  </div>
+</div>
+<div id="bottom-outer">
+  <div id="bottom-inner">
+    <a  id="top-button" onfocus="this.blur();"><div class="up upinbody" style="background-color:#26A69A"><i class="material-icons material-up">vertical_align_top</i></div></a>
+
+
+<p style="line-height: 45px">Copyright ©  2017  随笔笔记</p>
+<p style="line-height: 45px">Powered by <a href="https://hexo.io/" target="_blank"> Hexo </a> && Theme - <a href="https://github.com/moumao/hexo-theme-Vateral" target="_blank">Vateral</a></p>
+
+  </div>
+</div>
+
+<!--影集界面需要的资源-->
+
+
+
+<!-- scripts list from theme config.yml -->
+
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+<script src="/js/materialize.min.js"></script>
+
+<script src="/js/main.min.js"></script>
+
+
+<script>
+    NProgress.start();
+    NProgress.done();
+    lazy();
+    links();
+    window.onpopstate = menu();
+    //pjax操作
+    $(document).pjax('a:not(.nopjax)', '#content-inner', {fragment:'#content-inner', timeout:8000});
+    $(document).on('pjax:start', NProgress.start).on('pjax:end', NProgress.done)
+        .on('pjax:end', () => {
+            dowmdiv();
+            lazy();
+            toc();
+            links();
+            menu();
+        });
+</script>
+
+</body>
+</html>

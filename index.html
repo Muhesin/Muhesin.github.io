@@ -1,111 +1,304 @@
-{% extends "_layout.njk" %}
-
-{% block title %}{{ config.title }}{% if config.subtitle %} - {{ config.subtitle }}{% endif %}{% endblock %}
-
-{% block content %}
-{% set comment = false %}
-<section id="index" class="index">
-  {% for post in page.posts.toArray() %}
-  <article class="index-post card{% if theme.animate %} animate{% endif %}" itemscope itemtype="http://schema.org/Article">
-    <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="{{ config.url }}{{ url_for(post.path) }}">
-      <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <meta itemprop="name" content="{{ config.author }}">
-        <meta itemprop="description" content="{{ config.description }}">
-        <meta itemprop="image" content="{{ url_for( theme.avatar) }}">
-      </span>
-      <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-        <meta itemprop="name" content="{{ config.title }}">
-      </span>
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  
+  <meta name="keywords" content="网站关键字">
+  <meta name="description" content="网站简介">
+  
+  <title>随笔笔记</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/materialize.min.css">
+    
+      <link rel="stylesheet" href="/css/main.min.css">
+    
+  
+  <style type="text/css">
+      html{
+          font-family: sans-serif;
+          font-weight: 300;
+      }
+      @font-face {
+          font-family: 'Material Icons';
+          font-style: normal;
+          font-weight: 400;
+          src: url(/fonts/MaterialIcons-Regular.eot);
+          src: url(/fonts/MaterialIcons-Regular.woff2) format('woff2'),
+          url(/fonts/MaterialIcons-Regular.woff) format('woff'),
+          url(/fonts/MaterialIcons-Regular.ttf) format('truetype')
+      }
+  </style>
+<link rel="shortcut icon" href="/source/favicon.ico">
+</head>
+<body>
+<div id="menu-box"><a href="javascript:void(0)" id="menu" data-activates="slide-out" class="button-collapse menu" ><span class="nav-btn"></span></a></div>
+<div id="menu-outer">
+  <div id="menu-inner">
+      <ul id="slide-out" class="side-nav" >
+    <div class="nav-header"  style="background-image: url(/images/header-bg.png);background-color:#26A69A">
+    <div class="header-box"><img src="/images/header.png" ondragstart="return false;"></div>
+    <p>Muhesin</p>
+    <div class="nav-link">
+        
+        <a href="http://example.com" target="_blank"> <div class="link-box twitter"></div></a>
+        
+        
+        <a  href="http://example.com" target="_blank"><div class="link-box github"></div></a>
+        
+        
+        <a href="mailto:http://example.com"><div class="link-box email"></div></a>
+        
+        
+        <a href="http://example.com" target="_blank"><div class="link-box weibo"></div></a>
+        
+        
+        <a href="http://example.com" target="_blank"> <div class="link-box zhihu"></div></a>
+        
     </div>
-    <header class="post-header">
-      <h2 class="post-title" itemprop="name headline">
-        <a class="post-title-link post-title-link-external{% if post.direction and post.direction.toLowerCase() === \"rtl\" %} rtl{% endif %}" href="{{ url_for(post.path) }}" itemprop="url">{{ post.title }}</a>
-      </h2>
-      <div class="post-meta">
-        {% if post.date %}
-        <span class="post-date">
-          <i class="far fa-calendar-plus"></i> <time title="post-date" itemprop="dateCreated datePublished" datetime="{{ moment(post.date).format() }}">{{ date(post.date, config.date_format) }}</time>
-        </span>
-        {% endif %}
-        {% if post.categories and post.categories.toArray().length %}
-        {% if post.date %}
-        <span class="post-meta-divider"> | </span>
-        {% endif %}
-        <span class="post-categories">
-          <i class="far fa-folder-open"></i>
-          {% set i = 0 %}
-          {% for cat in post.categories.toArray() %}
-          {% if i != 0 %}<i class="fas fa-angle-right"></i> {% endif %}<span itemprop="about" itemscope itemtype="http://schema.org/Thing"> <a href="{{ url_for(cat.path) }}" itemprop="url" rel="index"><span itemprop="name">{{ cat.name }}</span></a></span>
-          {% set i = i + 1 %}
-          {% endfor %}
-        </span>
-        {% endif %}
-        {% if post.comment != false and theme.comment.enable %}
-        {% if post.categories %}
-        <span class="post-meta-divider"> | </span>
-        {% endif %}
-          {% if theme.comment.hypercomments_id %}
-          <span class="post-comment-count">
-            <i class="far fa-comments"></i> <a href="{{ url_for(post.path) }}#comments" itemprop="discussionUrl"><span class="post-comment-count hc-comment-count" data-xid="{{ post.path }}" itemprop="commentsCount"></span></a>
-          </span>
-          {% elif theme.comment.disqus_shortname %}
-          <span class="post-comment-count">
-            <i class="far fa-comments"></i> <a href="{{ url_for(post.path) }}#disqus_thread" itemprop="discussionUrl"><span class="post-comment-count disqus-comment-count" data-disqus-identifier="{{ post.path }}" itemprop="commentCount"></span></a>
-          </span>
-          {% endif %}
-        {% endif %}
+    <div class="nav-search">
+        <form id="search-form"> <!-- 搜索框相关 -->
+            <input type="text" id="local-search-input" name="q" results="0" placeholder="搜索..." class="search form-control" autocomplete="off" autocorrect="off"/>
+            <div class="nav-search-img"><i class="material-icons">search</i></div>
+        </form>
+        <div id="local-search-result"></div> <!-- 搜索结果区 -->
+        <p class='no-result'>无搜索结果</p>
+    </div>
+</div>
+    <!--Homepage-->
+
+<li class="nav-list">
+    <a href="/" target="_self">
+        <div class="nav-ico"><i class="material-icons">home</i> </div><p>主页</p>
+    </a>
+</li>
+
+<!--archives-->
+
+<li class="nav-list dropdown-btn">
+    <a  class=""  target="_self">
+        <div class="nav-ico"><i class="material-icons">assignment</i></div><p>归档</p><div class="dropdown-ico"><i class="material-icons">arrow_drop_down</i></div>
+    </a>
+</li>
+
+<ul class="dropdown-menu dropdown" >
+    <li class="nav-dropdown-list">
+        <a class="archive-link" href="/archives/2018/04/">April 2018<span class="archive-count">2</span></a>
+    </li>
+</ul>
+<!--categories-->
+
+<ul class="dropdown-menu dropdown" >
+    <li class="nav-dropdown-list">
+        
+    </li>
+</ul>
+<!--tags-->
+
+<li class="nav-list">
+    <a href="/archives" target="_self">
+        <div class="nav-ico"><i class="material-icons">bookmark</i> </div><p>标签</p>
+    </a>
+</li>
+
+<!--photo-->
+
+<!--friends-->
+
+<!--about-->
+
+
+</ul>
+
+  </div>
+</div>
+
+<div id="content-outer">
+  <div id="content-inner">
+    
+<div class="post-header" style="background-image:url(/images/coverpic.png);background-color:#26A69A ">
+    <a  href="http://example.com"  >
+        <div class="post-header-title">
+            <p style="">
+                
+                
+                你好 欢迎来到本站
+                
+                
+                <br>
+                
+            </p>
+        </div>
+    </a>
+</div>
+<div class="post-author">
+    <div class="post-author-img"><img src="/images/header.png" ondragstart="return false;"></div>
+    <p class="post-author-name">Muhesin</p>
+    <div class="post-author-button"  target="_self"><i class="material-icons"  target="_self" style="font-size: 20px">share</i></div>
+    <div class="post-author-link"><ul>
+            <p>分享到：</p>
+            <li><a href="http://v.t.sina.com.cn/share/share.php?url=http://yoursite.com&title=随笔笔记" target="_blank">新浪微博</a></li>
+            <li><a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com" target="_blank">QQ空间</a></li>
+            <li><a href="http://connect.qq.com/widget/shareqq/index.html?title=qqhaoyou&url=http://yoursite.com &desc= 随笔笔记" target="_blank">QQ好友</a></li>
+        </ul></div>
+</div>
+
+
+<div id="recent-posts">
+    
+    
+    
+    
+    
+  
+    
+      <div class="recent-post-item lazy"style="background-color:#26A69A"  data-original="/images/random/vateral-1.png"  >
+        <a class="recent-post-link" href="/2018/04/14/knowledge/">
+        <div class="post-hover">
+          <!--title-->
+          <p class="post-title"><a href="/2018/04/14/knowledge/" >知识使人免跌谷底</a></p>
+
+          <!--date-->
+          
+            <p class="post-time">Muhesin &nbsp &nbsp 发布于:<time datetime="2018-04-14T13:23:32.000Z">
+              2018-04-14
+            </time>
+            </p>
+          
+
+          <!--tags-->
+
+          标签:
+            
+              暂无标签
+            
+          <!--分类-->
+
+          分类:
+            
+                暂无分类
+            
+
+          <!--excerpt-->
+          <div class="post-excerpt">
+            <p>
+              摘要：
+              
+                前言请相信，读书和不读书的人生，真的不一样。或许你无法改变原生家庭，但读书可以给你逆袭的机会————————致自己
+
+              
+            </p>
+          </div>
+          <div class="post-more"><a href="/2018/04/14/knowledge/" >全文阅读</a></div>
+        </div>
+        </a>
       </div>
-    </header>
-    <main class="post-body{% if post.direction and post.direction.toLowerCase() === \"rtl\" %} rtl{% endif %}" itemprop="articleBody">
-      {% if post.description %}
-      {{ post.description }}
-      <div class="post-readmore">
-        <a class="readmore button" href="{{ url_for(post.path) }}">{{ __("readmore") }} <i class="fas fa-angle-double-right"></i></a>
+    
+  
+    
+      <div class="recent-post-item lazy"style="background-color:#26A69A"  data-original="/images/random/vateral-5.png"  >
+        <a class="recent-post-link" href="/2018/04/13/Begin/">
+        <div class="post-hover">
+          <!--title-->
+          <p class="post-title"><a href="/2018/04/13/Begin/" >起点</a></p>
+
+          <!--date-->
+          
+            <p class="post-time">Muhesin &nbsp &nbsp 发布于:<time datetime="2018-04-13T13:26:48.000Z">
+              2018-04-13
+            </time>
+            </p>
+          
+
+          <!--tags-->
+
+          标签:
+            
+              暂无标签
+            
+          <!--分类-->
+
+          分类:
+            
+                暂无分类
+            
+
+          <!--excerpt-->
+          <div class="post-excerpt">
+            <p>
+              摘要：
+              
+                前言———本文记录本人建立个人博客的心路历程和感悟
+
+Hexo是高效的静态站点生成框架，基于Node.js。
+Node.js是基于Chrome V8引擎的JavaScript运行环境，可以在非浏览器环境下，解释运行JS 代码。
+Git是目前世界上最流行的分布式版本控制系统，
+github是面向开源及私有软件项目的托管平台，因只支持git作为唯一的版本库格式进行托管，故名gitHub。
+Coding是面向开发者的云端开发平台,提供git/svn 代码托管,在线 WebIDE…
+
+
+
+              
+            </p>
+          </div>
+          <div class="post-more"><a href="/2018/04/13/Begin/" >全文阅读</a></div>
+        </div>
+        </a>
       </div>
-      {% elif post.excerpt  %}
-      {{ post.excerpt }}
-      <div class="post-readmore">
-        <a class="readmore button" href="{{ url_for(post.path) }}#more">{{ __("readmore") }} <i class="fas fa-angle-double-right"></i></a>
-      </div>
-      {% else %}
-      {{ post.content }}
-      {% endif %}
-    </main>
-    <footer class="post-footer">
-      {% if post.tags and post.tags.toArray().length %}
-      <div class="post-tags">
-        {% set i = 0 %}
-        {% if theme.tags_color %}
-        {% set colors = theme.tags_color %}
-        {% else %}
-        {% set colors = ["#fc6423", "#a3bb54", "#47aaff"] %}
-        {% endif %}
-        {% for tag in post.tags.toArray() %}
-        {% if i >= colors.length %}
-        {% set i = 0 %}
-        {% endif %}
-        <a class="post-tag button" href="{{ url_for(tag.path) }}" style="background: {{ colors[i] }}" rel="tag"><i class="fas fa-tags"></i> {{ tag.name }}</a>
-        {% set i = i + 1 %}
-        {% endfor %}
-      </div>
-      {% endif %}
-    </footer>
-  </article>
-  {% endfor %}
-  {% if page.prev or page.next %}
-  <nav class="pagination">
-    {{
-      paginator({
-        prev_text: "<i class=\"fas fa-angle-left\"></i>",
-        next_text: "<i class=\"fas fa-angle-right\"></i>",
-        mid_size: 1
-      })
-    }}
-  </nav>
-  {% endif %}
-  {% if theme.comment.enable %}
-  {% include "comment.njk" %}
-  {% endif %}
-</section>
-{% endblock %}
+    
+  
+  <nav class="paging">
+    <span class="page-number current">1</span>
+</nav>
+</div>
+
+
+
+  </div>
+</div>
+<div id="bottom-outer">
+  <div id="bottom-inner">
+    <a  id="top-button" onfocus="this.blur();"><div class="up upinbody" style="background-color:#26A69A"><i class="material-icons material-up">vertical_align_top</i></div></a>
+
+
+<p style="line-height: 45px">Copyright ©  2017  随笔笔记</p>
+<p style="line-height: 45px">Powered by <a href="https://hexo.io/" target="_blank"> Hexo </a> && Theme - <a href="https://github.com/moumao/hexo-theme-Vateral" target="_blank">Vateral</a></p>
+
+  </div>
+</div>
+
+<!--影集界面需要的资源-->
+
+
+
+<!-- scripts list from theme config.yml -->
+
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+<script src="/js/materialize.min.js"></script>
+
+<script src="/js/main.min.js"></script>
+
+
+<script>
+    NProgress.start();
+    NProgress.done();
+    lazy();
+    links();
+    window.onpopstate = menu();
+    //pjax操作
+    $(document).pjax('a:not(.nopjax)', '#content-inner', {fragment:'#content-inner', timeout:8000});
+    $(document).on('pjax:start', NProgress.start).on('pjax:end', NProgress.done)
+        .on('pjax:end', () => {
+            dowmdiv();
+            lazy();
+            toc();
+            links();
+            menu();
+        });
+</script>
+
+</body>
+</html>
