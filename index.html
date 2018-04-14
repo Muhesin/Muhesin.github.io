@@ -1,304 +1,486 @@
 <!DOCTYPE html>
 <html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  
-  <meta name="keywords" content="网站关键字">
-  <meta name="description" content="网站简介">
-  
-  <title>随笔笔记</title>
-  
-    <!-- stylesheets list from config.yml -->
-    
-      <link rel="stylesheet" href="/css/materialize.min.css">
-    
-      <link rel="stylesheet" href="/css/main.min.css">
-    
-  
-  <style type="text/css">
-      html{
-          font-family: sans-serif;
-          font-weight: 300;
-      }
-      @font-face {
-          font-family: 'Material Icons';
-          font-style: normal;
-          font-weight: 400;
-          src: url(/fonts/MaterialIcons-Regular.eot);
-          src: url(/fonts/MaterialIcons-Regular.woff2) format('woff2'),
-          url(/fonts/MaterialIcons-Regular.woff) format('woff'),
-          url(/fonts/MaterialIcons-Regular.ttf) format('truetype')
-      }
-  </style>
-<link rel="shortcut icon" href="/source/favicon.ico">
-</head>
-<body>
-<div id="menu-box"><a href="javascript:void(0)" id="menu" data-activates="slide-out" class="button-collapse menu" ><span class="nav-btn"></span></a></div>
-<div id="menu-outer">
-  <div id="menu-inner">
-      <ul id="slide-out" class="side-nav" >
-    <div class="nav-header"  style="background-image: url(/images/header-bg.png);background-color:#26A69A">
-    <div class="header-box"><img src="/images/header.png" ondragstart="return false;"></div>
-    <p>Muhesin</p>
-    <div class="nav-link">
-        
-        <a href="http://example.com" target="_blank"> <div class="link-box twitter"></div></a>
-        
-        
-        <a  href="http://example.com" target="_blank"><div class="link-box github"></div></a>
-        
-        
-        <a href="mailto:http://example.com"><div class="link-box email"></div></a>
-        
-        
-        <a href="http://example.com" target="_blank"><div class="link-box weibo"></div></a>
-        
-        
-        <a href="http://example.com" target="_blank"> <div class="link-box zhihu"></div></a>
-        
-    </div>
-    <div class="nav-search">
-        <form id="search-form"> <!-- 搜索框相关 -->
-            <input type="text" id="local-search-input" name="q" results="0" placeholder="搜索..." class="search form-control" autocomplete="off" autocorrect="off"/>
-            <div class="nav-search-img"><i class="material-icons">search</i></div>
-        </form>
-        <div id="local-search-result"></div> <!-- 搜索结果区 -->
-        <p class='no-result'>无搜索结果</p>
-    </div>
-</div>
-    <!--Homepage-->
 
-<li class="nav-list">
-    <a href="/" target="_self">
-        <div class="nav-ico"><i class="material-icons">home</i> </div><p>主页</p>
-    </a>
-</li>
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
 
-<!--archives-->
-
-<li class="nav-list dropdown-btn">
-    <a  class=""  target="_self">
-        <div class="nav-ico"><i class="material-icons">assignment</i></div><p>归档</p><div class="dropdown-ico"><i class="material-icons">arrow_drop_down</i></div>
-    </a>
-</li>
-
-<ul class="dropdown-menu dropdown" >
-    <li class="nav-dropdown-list">
-        <a class="archive-link" href="/archives/2018/04/">April 2018<span class="archive-count">2</span></a>
-    </li>
-</ul>
-<!--categories-->
-
-<ul class="dropdown-menu dropdown" >
-    <li class="nav-dropdown-list">
-        
-    </li>
-</ul>
-<!--tags-->
-
-<li class="nav-list">
-    <a href="/archives" target="_self">
-        <div class="nav-ico"><i class="material-icons">bookmark</i> </div><p>标签</p>
-    </a>
-</li>
-
-<!--photo-->
-
-<!--friends-->
-
-<!--about-->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Muhesin" />
 
 
-</ul>
-
-  </div>
-</div>
-
-<div id="content-outer">
-  <div id="content-inner">
-    
-<div class="post-header" style="background-image:url(/images/coverpic.png);background-color:#26A69A ">
-    <a  href="http://example.com"  >
-        <div class="post-header-title">
-            <p style="">
-                
-                
-                你好 欢迎来到本站
-                
-                
-                <br>
-                
-            </p>
-        </div>
-    </a>
-</div>
-<div class="post-author">
-    <div class="post-author-img"><img src="/images/header.png" ondragstart="return false;"></div>
-    <p class="post-author-name">Muhesin</p>
-    <div class="post-author-button"  target="_self"><i class="material-icons"  target="_self" style="font-size: 20px">share</i></div>
-    <div class="post-author-link"><ul>
-            <p>分享到：</p>
-            <li><a href="http://v.t.sina.com.cn/share/share.php?url=http://yoursite.com&title=随笔笔记" target="_blank">新浪微博</a></li>
-            <li><a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://yoursite.com" target="_blank">QQ空间</a></li>
-            <li><a href="http://connect.qq.com/widget/shareqq/index.html?title=qqhaoyou&url=http://yoursite.com &desc= 随笔笔记" target="_blank">QQ好友</a></li>
-        </ul></div>
-</div>
-
-
-<div id="recent-posts">
     
     
-    
-    
-    
-  
-    
-      <div class="recent-post-item lazy"style="background-color:#26A69A"  data-original="/images/random/vateral-1.png"  >
-        <a class="recent-post-link" href="/2018/04/14/knowledge/">
-        <div class="post-hover">
-          <!--title-->
-          <p class="post-title"><a href="/2018/04/14/knowledge/" >知识使人免跌谷底</a></p>
 
-          <!--date-->
-          
-            <p class="post-time">Muhesin &nbsp &nbsp 发布于:<time datetime="2018-04-14T13:23:32.000Z">
-              2018-04-14
-            </time>
-            </p>
-          
 
-          <!--tags-->
+<meta property="og:type" content="website">
+<meta property="og:title" content="随笔笔记">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="随笔笔记">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="随笔笔记">
 
-          标签:
-            
-              暂无标签
-            
-          <!--分类-->
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
-          分类:
-            
-                暂无分类
-            
 
-          <!--excerpt-->
-          <div class="post-excerpt">
-            <p>
-              摘要：
-              
-                前言请相信，读书和不读书的人生，真的不一样。或许你无法改变原生家庭，但读书可以给你逆袭的机会————————致自己
-
-              
-            </p>
-          </div>
-          <div class="post-more"><a href="/2018/04/14/knowledge/" >全文阅读</a></div>
-        </div>
-        </a>
-      </div>
-    
-  
-    
-      <div class="recent-post-item lazy"style="background-color:#26A69A"  data-original="/images/random/vateral-5.png"  >
-        <a class="recent-post-link" href="/2018/04/13/Begin/">
-        <div class="post-hover">
-          <!--title-->
-          <p class="post-title"><a href="/2018/04/13/Begin/" >起点</a></p>
-
-          <!--date-->
-          
-            <p class="post-time">Muhesin &nbsp &nbsp 发布于:<time datetime="2018-04-13T13:26:48.000Z">
-              2018-04-13
-            </time>
-            </p>
-          
-
-          <!--tags-->
-
-          标签:
-            
-              暂无标签
-            
-          <!--分类-->
-
-          分类:
-            
-                暂无分类
-            
-
-          <!--excerpt-->
-          <div class="post-excerpt">
-            <p>
-              摘要：
-              
-                前言———本文记录本人建立个人博客的心路历程和感悟
-
-Hexo是高效的静态站点生成框架，基于Node.js。
-Node.js是基于Chrome V8引擎的JavaScript运行环境，可以在非浏览器环境下，解释运行JS 代码。
-Git是目前世界上最流行的分布式版本控制系统，
-github是面向开源及私有软件项目的托管平台，因只支持git作为唯一的版本库格式进行托管，故名gitHub。
-Coding是面向开发者的云端开发平台,提供git/svn 代码托管,在线 WebIDE…
+    <link rel="alternate" href="/atom.xml" title="随笔笔记" type="application/atom+xml">
 
 
 
-              
-            </p>
-          </div>
-          <div class="post-more"><a href="/2018/04/13/Begin/" >全文阅读</a></div>
-        </div>
-        </a>
-      </div>
-    
-  
-  <nav class="paging">
-    <span class="page-number current">1</span>
-</nav>
-</div>
+    <link rel="shortcut icon" href="/favicon.png">
 
 
 
-  </div>
-</div>
-<div id="bottom-outer">
-  <div id="bottom-inner">
-    <a  id="top-button" onfocus="this.blur();"><div class="up upinbody" style="background-color:#26A69A"><i class="material-icons material-up">vertical_align_top</i></div></a>
-
-
-<p style="line-height: 45px">Copyright ©  2017  随笔笔记</p>
-<p style="line-height: 45px">Powered by <a href="https://hexo.io/" target="_blank"> Hexo </a> && Theme - <a href="https://github.com/moumao/hexo-theme-Vateral" target="_blank">Vateral</a></p>
-
-  </div>
-</div>
-
-<!--影集界面需要的资源-->
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
 
 
 
-<!-- scripts list from theme config.yml -->
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
 
-<script src="/js/jquery-3.1.1.min.js"></script>
 
-<script src="/js/materialize.min.js"></script>
 
-<script src="/js/main.min.js"></script>
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
 
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <style> .article { opacity: 0;} </style>
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>随笔笔记</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
 
 <script>
-    NProgress.start();
-    NProgress.done();
-    lazy();
-    links();
-    window.onpopstate = menu();
-    //pjax操作
-    $(document).pjax('a:not(.nopjax)', '#content-inner', {fragment:'#content-inner', timeout:8000});
-    $(document).on('pjax:start', NProgress.start).on('pjax:end', NProgress.done)
-        .on('pjax:end', () => {
-            dowmdiv();
-            lazy();
-            toc();
-            links();
-            menu();
-        });
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: true,
+        isPost: false,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: 
+    }
 </script>
 
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Muhesin</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">点滴积累</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:123@123.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Muhesin</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Muhesin</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">点滴积累</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:123@123.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap">
+  
+    <article id="post-knowledge" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/04/14/knowledge/" class="article-date">
+      <time datetime="2018-04-14T13:23:32.000Z" itemprop="datePublished">2018-04-14</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/14/knowledge/">知识使人免跌谷底</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>请相信，读书和不读书的人生，真的不一样。或许你无法改变原生家庭，但读书可以给你逆袭的机会————————致自己</p>
+<h1 id="论述"><a href="#论述" class="headerlink" title="论述"></a>论述</h1><ul>
+<li><h4 id="读书能为你提供更大的平台"><a href="#读书能为你提供更大的平台" class="headerlink" title="读书能为你提供更大的平台"></a>读书能为你提供更大的平台</h4>越来越多的成功人士用实例告诉我们：读书真的很重要，读书能为你提供更大的平台。越来越多的大学生发现：能力虽然重要，但学历才是真正的敲门砖。在招聘会上，211和985背景的简历会被单独存放，而普通本科毕业应聘者简历只潦草的过了几眼，更不用说那些二本专科简历早早就结束战场了。不可否认，读书真的很重要，它能够为你提供更好的人脉，搭建更好的平台。有人会说：用的着那么看重一张纸吗，干的好不就行了？的确，学历不能决定一生，文凭也不能代表能力。但是，有些机会只留给拿着这张通行证的人。因为，它在一定程度上代表你努力奋斗、积极向上的过去。</li>
+<li><h4 id="不读书的人会输掉什么"><a href="#不读书的人会输掉什么" class="headerlink" title="不读书的人会输掉什么"></a>不读书的人会输掉什么</h4>曾经勇敢扛起“读书无用论”大旗的蒋多多，为了养活自己辗转各地，却发现连份像样的工作都找不到。10年过去，这个当初喊着“我永远不后悔”的姑娘，在饱经沧桑后终于改口：我为自己感到悲哀，螳臂当车自不量力。其实，高考才是这辈子最公平的考试。不读书终输掉撰写美好一生的机会.</li>
+<li><h4 id="感悟"><a href="#感悟" class="headerlink" title="感悟"></a>感悟</h4>比你有钱，比你好看的人不可怕，可怕的是：比你有钱，比你好看的人比你更努力。从现在起和过去那个浑浑噩噩，虚度光阴的自己挥手告别，毫不留情的说再见，向那个壮志凌云的自己进发。<br><img border="0" src="/images/struggle.jpg" alt="Pulpit rock" width="400" height="200"></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Begin" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/04/13/Begin/" class="article-date">
+      <time datetime="2018-04-13T13:26:48.000Z" itemprop="datePublished">2018-04-13</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/13/Begin/">起点</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><pre><code>———本文记录本人建立个人博客的心路历程和感悟
+</code></pre><ul>
+<li>Hexo是高效的静态站点生成框架，基于Node.js。</li>
+<li>Node.js是基于Chrome V8引擎的JavaScript运行环境，<br>可以在非浏览器环境下，解释运行JS 代码。</li>
+<li>Git是目前世界上最流行的分布式版本控制系统，</li>
+<li>github是面向开源及私有软件项目的托管平台，<br>因只支持git作为唯一的版本库格式进行托管，故名gitHub。</li>
+<li>Coding是面向开发者的云端开发平台,提供git/svn 代码托管,在线 WebIDE…</li>
+</ul>
+<ul>
+<li>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+        <p class="article-more-link">
+          <a href="/2018/04/13/Begin/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+  
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2018 Muhesin
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
 </body>
 </html>
